@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#F26522">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Sahara Mart - Your Everyday Hypermarket</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="withoutbg.png" type="image/png">
+    <link rel="shortcut icon" href="withoutbg.png" type="image/png">
+    <link rel="apple-touch-icon" href="withoutbg.png">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="withoutbg.png" as="image">
+    <link rel="preload" href="withbg.png" as="image">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    
+    <!-- Tailwind CSS CDN with defer -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script>
+        // Inline critical Tailwind config for faster rendering
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            'desert-sand': '#E8D8C3',
+                            'sahara-orange': '#F26522',
+                            'sahara-yellow': '#F9B233',
+                            'slate-gray': '#3E3E3E',
+                        },
+                    },
+                },
+            }
+        };
+    </script>
+    
+    <!-- Critical CSS inlined for faster first paint -->
+    <style>
+        /* Critical CSS for above-the-fold content */
+        body {
+            background-color: #E8D8C3;
+            color: #3E3E3E;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #E8D8C3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(242, 101, 34, 0.3);
+            border-radius: 50%;
+            border-top-color: #F26522;
+            animation: spin 1s ease-in-out infinite;
+            will-change: transform;
+            transform: translateZ(0);
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg) translateZ(0); }
+        }
+        
+        /* Prevent FOUC (Flash of Unstyled Content) */
+        .no-fouc {
+            visibility: hidden;
+        }
+        
+        /* Prevent animation glitches */
+        .no-animation {
+            animation: none !important;
+            transition: none !important;
+        }
+        
+        /* Mobile-specific styles */
+        .touch-active {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+        
+        /* Use CSS variables for dynamic viewport height */
+        :root {
+            --vh: 1vh;
+        }
+        
+        /* Header styles for mobile */
+        header.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Active state for mobile menu button */
+        #mobile-menu-btn.active {
+            color: #F26522;
+        }
+    </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+</head>
+<body class="bg-desert-sand text-slate-gray no-fouc no-animation">
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Rest of the content -->
+    <!-- Header -->
+    <header class="sticky top-0 glass-effect z-50 transition-all duration-300 hardware-accelerated">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center group">
+                <img src="withoutbg.png" alt="Sahara Mart" class="h-12 md:h-16 group-hover:scale-105 transition-all duration-300">
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Home</a>
+                <a href="#shop" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Shop</a>
+                <a href="#offers" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Offers</a>
+                <a href="#about" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">About</a>
+                <a href="#contact" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Contact</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-gray focus:outline-none p-2 rounded-full hover:bg-sahara-orange/10 transition-colors" aria-label="Toggle mobile menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden glass-effect">
+            <div class="container mx-auto px-4 py-3 space-y-3">
+                <a href="#" class="block font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 py-2 px-3 rounded-lg hover:bg-sahara-orange/10">Home</a>
+                <a href="#shop" class="block font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 py-2 px-3 rounded-lg hover:bg-sahara-orange/10">Shop</a>
+                <a href="#offers" class="block font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 py-2 px-3 rounded-lg hover:bg-sahara-orange/10">Offers</a>
+                <a href="#about" class="block font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 py-2 px-3 rounded-lg hover:bg-sahara-orange/10">About</a>
+                <a href="#contact" class="block font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 py-2 px-3 rounded-lg hover:bg-sahara-orange/10">Contact</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="bg-pattern py-16 md:py-28 overflow-hidden" style="min-height: calc(100vh - 80px); min-height: calc(var(--vh, 1vh) * 100 - 80px);">
+        <div class="container mx-auto px-4 md:px-8 lg:px-12 relative">
+            <!-- Floating decorative elements (Vision OS style) -->
+            <div class="absolute -top-10 left-10 w-32 h-32 bg-sahara-yellow bg-opacity-10 rounded-full filter blur-xl animate-float hardware-accelerated"></div>
+            <div class="absolute top-20 right-10 w-48 h-48 bg-sahara-orange bg-opacity-10 rounded-full filter blur-xl animate-float stagger-2 hardware-accelerated"></div>
+            <div class="absolute bottom-10 left-1/4 w-24 h-24 bg-sahara-yellow bg-opacity-10 rounded-full filter blur-xl animate-float stagger-3 hardware-accelerated"></div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center h-full relative z-10">
+                <!-- Hero Content -->
+                <div class="w-full md:w-1/2 mb-12 md:mb-0 md:pl-6 lg:pl-10">
+                    <div class="relative inline-block mb-4">
+                        <span class="absolute -left-3 -top-3 w-12 h-12 bg-sahara-yellow opacity-20 rounded-full blur-md"></span>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-sahara-orange animate-slide-left opacity-0 text-glow hardware-accelerated relative">
+                            Your Everyday <span class="relative inline-block">
+                                <span class="absolute -bottom-2 left-0 w-full h-3 bg-sahara-yellow opacity-30 rounded-full blur-sm"></span>
+                                Hypermarket
+                            </span>
+                        </h1>
+                    </div>
+                    <p class="text-lg md:text-xl mb-8 max-w-lg animate-slide-left opacity-0 stagger-1 hardware-accelerated leading-relaxed">
+                        Discover quality products, fresh groceries, and everyday essentials at Sahara Mart - Bahrain's premier shopping destination.
+                    </p>
+                    <div class="flex flex-wrap gap-6 animate-slide-left opacity-0 stagger-2 hardware-accelerated">
+                        <a href="#shop" class="px-10 py-4 text-lg btn-vision text-white font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-orange/20 hover:-translate-y-1 duration-300">
+                            Shop Now
+                        </a>
+                        <a href="#offers" class="px-10 py-4 text-lg glass-effect text-slate-gray font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-yellow/20 hover:-translate-y-1 duration-300 border border-white/20">
+                            View Offers
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Hero Image -->
+                <div class="w-full md:w-1/2 animate-slide-right opacity-0 hardware-accelerated">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-sahara-orange to-sahara-yellow opacity-20 blur-xl rounded-full"></div>
+                        <div class="absolute inset-0 bg-white/5 rounded-2xl backdrop-blur-sm"></div>
+                        <img src="withbg.png" alt="Sahara Mart" class="w-full max-w-lg mx-auto rounded-2xl shadow-xl relative z-10 animate-float stagger-1 hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section id="shop" class="py-16 md:py-24 bg-white relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-20 right-0 w-64 h-64 bg-sahara-yellow bg-opacity-5 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-80 h-80 bg-sahara-orange bg-opacity-5 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-sahara-orange/10 text-sahara-orange rounded-full text-sm font-medium mb-4 animate-on-scroll opacity-0">Our Collection</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-sahara-orange animate-on-scroll opacity-0 text-glow hardware-accelerated">
+                    Featured Products
+                </h2>
+                <p class="max-w-2xl mx-auto text-slate-gray animate-on-scroll opacity-0">Explore our handpicked selection of premium products that offer exceptional quality and value.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Product Card 1 -->
+                <div class="glass-card group animate-on-scroll opacity-0 depth-1 hardware-accelerated rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Fresh Produce" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async">
+                        <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-sahara-orange hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold group-hover:text-sahara-orange transition-colors">Fresh Produce</h3>
+                            <div class="bg-sahara-orange/10 text-sahara-orange text-xs font-medium px-2 py-1 rounded-full">New</div>
+                        </div>
+                        <p class="text-sm text-slate-gray mb-4">Farm-fresh fruits and vegetables sourced locally</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sahara-orange">From $2.99</span>
+                            <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 2 -->
+                <div class="glass-card group animate-on-scroll opacity-0 stagger-1 depth-1 hardware-accelerated rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Bakery Items" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async">
+                        <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-sahara-orange hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold group-hover:text-sahara-orange transition-colors">Fresh Bakery</h3>
+                            <div class="bg-sahara-yellow/10 text-sahara-yellow text-xs font-medium px-2 py-1 rounded-full">Popular</div>
+                        </div>
+                        <p class="text-sm text-slate-gray mb-4">Artisan breads and pastries baked daily</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sahara-orange">From $3.49</span>
+                            <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 3 -->
+                <div class="glass-card group animate-on-scroll opacity-0 stagger-2 depth-1 hardware-accelerated rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Household Items" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async">
+                        <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-sahara-orange hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold group-hover:text-sahara-orange transition-colors">Household Essentials</h3>
+                            <div class="bg-sahara-orange/10 text-sahara-orange text-xs font-medium px-2 py-1 rounded-full">Sale</div>
+                        </div>
+                        <p class="text-sm text-slate-gray mb-4">Quality cleaning and home maintenance products</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sahara-orange">From $4.99</span>
+                            <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product Card 4 -->
+                <div class="glass-card group animate-on-scroll opacity-0 stagger-3 depth-1 hardware-accelerated rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="aspect-[4/5] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Electronics" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" decoding="async">
+                        <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-sahara-orange hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-lg font-semibold group-hover:text-sahara-orange transition-colors">Electronics</h3>
+                            <div class="bg-sahara-yellow/10 text-sahara-yellow text-xs font-medium px-2 py-1 rounded-full">Best Seller</div>
+                        </div>
+                        <p class="text-sm text-slate-gray mb-4">Latest gadgets and home appliances</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sahara-orange">From $19.99</span>
+                            <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 md:mt-16">
+                <a href="#shop-all" class="inline-block px-8 py-3 glass-effect text-slate-gray font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-orange/20 hover:-translate-y-1 duration-300 border border-white/20">
+                    View All Products
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-desert-sand relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-1/4 w-72 h-72 bg-sahara-orange bg-opacity-10 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-sahara-yellow bg-opacity-10 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-sahara-orange animate-on-scroll opacity-0 text-glow hardware-accelerated">
+                About Sahara Mart
+            </h2>
+            
+            <div class="max-w-3xl mx-auto text-center mb-16 animate-on-scroll opacity-0">
+                <p class="text-lg">
+                    Sahara Mart is Bahrain's premier hypermarket, offering a wide range of quality products at affordable prices. 
+                    We pride ourselves on providing exceptional customer service and a convenient shopping experience for all our customers.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card p-8 text-center animate-on-scroll opacity-0 transform hover:-translate-y-2 transition-all duration-300 hardware-accelerated">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-sahara-orange to-sahara-yellow rounded-full flex items-center justify-center shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-sahara-orange">Quality Products</h3>
+                    <p class="text-slate-gray">
+                        We source only the finest products, ensuring everything we sell meets our high standards for quality and freshness.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="glass-card p-8 text-center animate-on-scroll opacity-0 stagger-1 transform hover:-translate-y-2 transition-all duration-300 hardware-accelerated">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-sahara-yellow to-sahara-orange rounded-full flex items-center justify-center shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-sahara-orange">Convenience</h3>
+                    <p class="text-slate-gray">
+                        With multiple locations across Bahrain and extended opening hours, we make shopping convenient for all our customers.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="glass-card p-8 text-center animate-on-scroll opacity-0 stagger-2 transform hover:-translate-y-2 transition-all duration-300 hardware-accelerated">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-sahara-orange to-sahara-yellow rounded-full flex items-center justify-center shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-sahara-orange">Affordability</h3>
+                    <p class="text-slate-gray">
+                        We believe quality shouldn't come at a premium. Our competitive pricing ensures value for money on every purchase.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center animate-on-scroll opacity-0">
+                <a href="#about-more" class="inline-block px-8 py-3 btn-vision text-white font-medium rounded-full transition-all">
+                    Learn More About Us
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="py-20 bg-white relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-10 left-10 w-64 h-64 bg-sahara-orange bg-opacity-5 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-sahara-yellow bg-opacity-5 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-sahara-orange animate-on-scroll opacity-0 text-glow hardware-accelerated">
+                What Our Customers Say
+            </h2>
+            
+            <div class="max-w-4xl mx-auto relative">
+                <!-- Testimonial Cards -->
+                <div class="testimonial-carousel">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card glass-card p-8 md:p-10">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sahara-orange to-sahara-yellow rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                                A
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-semibold text-lg">Ahmed Al-Mansoor</h4>
+                                <p class="text-sm text-slate-gray">Regular Customer</p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex text-sahara-yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-lg italic">
+                            "Sahara Mart has become my go-to place for all my shopping needs. The quality of products and the friendly staff make every shopping trip a pleasure!"
+                        </p>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card glass-card p-8 md:p-10 hidden">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sahara-yellow to-sahara-orange rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                                F
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-semibold text-lg">Fatima Khalid</h4>
+                                <p class="text-sm text-slate-gray">Loyal Customer</p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex text-sahara-yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-lg italic">
+                            "The variety of products available at Sahara Mart is impressive. I can find everything I need in one place, saving me time and effort. The prices are also very competitive!"
+                        </p>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card glass-card p-8 md:p-10 hidden">
+                        <div class="flex items-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sahara-orange to-sahara-yellow rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                                M
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-semibold text-lg">Mohammed Al-Bahrani</h4>
+                                <p class="text-sm text-slate-gray">Weekly Shopper</p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex text-sahara-yellow">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-lg italic">
+                            "The fresh produce section at Sahara Mart is exceptional. Everything is always fresh and of the highest quality. The staff is also very helpful and knowledgeable."
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="flex justify-center mt-10 space-x-4">
+                    <button onclick="prevTestimonial()" class="p-3 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button onclick="nextTestimonial()" class="p-3 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter/CTA -->
+    <section id="newsletter" class="py-20 bg-desert-sand bg-pattern relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-10 right-10 w-72 h-72 bg-sahara-orange bg-opacity-10 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-96 h-96 bg-sahara-yellow bg-opacity-10 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto glass-card p-10 md:p-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-6 text-sahara-orange animate-on-scroll opacity-0 text-glow">
+                    Stay Updated
+                </h2>
+                <p class="text-center mb-10 animate-on-scroll opacity-0">
+                    Subscribe to our newsletter for exclusive offers, new product announcements, and shopping tips.
+                </p>
+                
+                <form class="max-w-md mx-auto animate-on-scroll opacity-0">
+                    <div class="relative mb-8 group">
+                        <input type="email" id="email" class="peer w-full px-5 py-4 bg-white bg-opacity-70 backdrop-blur-sm border-2 border-white rounded-full focus:outline-none focus:border-sahara-orange transition-colors" placeholder=" " required>
+                        <label for="email" class="absolute left-5 top-4 text-slate-gray transition-all duration-300 peer-focus:-top-6 peer-focus:text-xs peer-focus:text-sahara-orange peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-focus:left-0">
+                            Email Address
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full btn-vision text-white font-medium py-4 px-6 rounded-full transition-all transform hover:-translate-y-1">
+                        Subscribe Now
+                    </button>
+                </form>
+                
+                <div class="flex flex-wrap justify-center mt-10 gap-8 animate-on-scroll opacity-0">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-orange to-sahara-yellow flex items-center justify-center shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <span class="ml-3">Weekly Updates</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-yellow to-sahara-orange flex items-center justify-center shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <span class="ml-3">Exclusive Offers</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-orange to-sahara-yellow flex items-center justify-center shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <span class="ml-3">No Spam</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact" class="bg-desert-sand pt-20 pb-10 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white to-transparent opacity-20"></div>
+        <div class="absolute -bottom-20 right-0 w-80 h-80 bg-sahara-orange bg-opacity-5 rounded-full filter blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
+                <!-- Column 1: About -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <img src="withoutbg.png" alt="Sahara Mart" class="h-14 mb-6 animate-float">
+                    <p class="mb-6 text-slate-gray">
+                        Sahara Mart is Bahrain's premier hypermarket, offering quality products at affordable prices with exceptional customer service.
+                    </p>
+                    <div class="flex space-x-5">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-orange to-sahara-yellow flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-yellow to-sahara-orange flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-orange to-sahara-yellow flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Column 2: Quick Links -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-semibold mb-6 text-sahara-orange text-glow">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-slate-gray hover:text-sahara-orange transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Home
+                        </a></li>
+                        <li><a href="#shop" class="text-slate-gray hover:text-sahara-orange transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Shop
+                        </a></li>
+                        <li><a href="#offers" class="text-slate-gray hover:text-sahara-orange transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Offers
+                        </a></li>
+                        <li><a href="#about" class="text-slate-gray hover:text-sahara-orange transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            About Us
+                        </a></li>
+                        <li><a href="#contact" class="text-slate-gray hover:text-sahara-orange transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Contact
+                        </a></li>
+                        <li><a href="#" class="text-slate-gray hover:text-sahara-orange transition-colors flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            Careers
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Column 3: Contact Info -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <h3 class="text-xl font-semibold mb-6 text-sahara-orange text-glow">Contact Us</h3>
+                    <div class="space-y-5">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-orange to-sahara-yellow flex items-center justify-center shadow-md mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <address class="not-italic ml-4">
+                                123 Manama Way<br>
+                                Manama, Bahrain
+                            </address>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-yellow to-sahara-orange flex items-center justify-center shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                            </div>
+                            <span class="ml-4">+973 1234 5678</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-sahara-orange to-sahara-yellow flex items-center justify-center shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <a href="mailto:info@saharamart.com" class="ml-4 hover:text-sahara-orange transition-colors">info@saharamart.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="text-center glass-effect py-6 px-4 rounded-full">
+                <p>&copy; 2023 Sahara Mart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Defer non-critical JavaScript -->
+    <script src="script.js" defer></script>
+    
+    <!-- Inline critical JavaScript for faster loading -->
+    <script>
+        // Show body content when page is loaded
+        window.addEventListener('load', function() {
+            // Remove no-animation class to enable animations
+            setTimeout(function() {
+                document.body.classList.remove('no-animation');
+            }, 100);
+            
+            // Make body visible
+            document.body.style.opacity = '1';
+            
+            // Hide loading overlay
+            setTimeout(function() {
+                const loadingOverlay = document.getElementById('loading-overlay');
+                if (loadingOverlay) {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(function() {
+                        loadingOverlay.style.display = 'none';
+                    }, 500);
+                }
+            }, 300);
+            
+            // Set viewport height for mobile
+            function setVh() {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            setVh();
+            window.addEventListener('resize', setVh);
+        });
+    </script>
+    
+    <!-- Add this script at the end of body to remove FOUC class -->
+    <script>
+        // Remove no-fouc class when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.remove('no-fouc');
+        });
+    </script>
+</body>
+</html> 
