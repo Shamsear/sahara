@@ -1,0 +1,80 @@
+/* UI/UX polish for Sahara Mart (non-intrusive, accessible, mobile-friendly) */
+
+/* 1) Focus visibility for keyboard users */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid #F26522;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* 2) Button micro-interactions (no heavy effects) */
+.btn-vision {
+  position: relative;
+}
+.btn-vision:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn-vision:focus-visible {
+  box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.25);
+}
+
+/* 3) Desktop nav links: clearer hover/active state */
+.header-nav a {
+  position: relative;
+  padding-bottom: 4px;
+}
+.header-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, #F26522, #F9B233);
+  transition: width 220ms ease;
+}
+.header-nav a:hover::after,
+.header-nav a.nav-link-active::after {
+  width: 100%;
+}
+.header-nav a.nav-link-active {
+  color: #F26522;
+}
+
+/* 4) Mobile nav: larger tap targets */
+#mobile-menu a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+}
+
+/* 5) Cards: slightly stronger hover but capped */
+.glass-card:hover {
+  transform: translateY(-6px);
+}
+
+/* 6) Reduced motion: tone down animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 7) Testimonial carousel buttons spacing on mobile */
+@media (max-width: 480px) {
+  .testimonial-carousel + .flex {
+    gap: 10px;
+  }
+}
+
+/* 8) Form inputs: clearer focus and placeholder label */
+input:focus-visible + label {
+  color: #F26522;
+}
+
+/* 9) Header on scroll: subtle border for separation */
+header.scrolled {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}

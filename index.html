@@ -126,6 +126,8 @@
     <!-- Non-critical CSS loaded asynchronously -->
     <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
+    <!-- UI Polish CSS -->
+    <link rel="stylesheet" href="ui-polish.css">
 </head>
 <body class="bg-desert-sand text-slate-gray no-fouc no-animation">
     <!-- Loading overlay -->
@@ -136,19 +138,19 @@
     <!-- Rest of the content -->
     <!-- Header -->
     <header class="sticky top-0 glass-effect z-50 transition-all duration-300 hardware-accelerated">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between">
             <!-- Logo -->
             <a href="#" class="flex items-center group">
-                <img src="withoutbg.png" alt="Sahara Mart" class="h-12 md:h-16 group-hover:scale-105 transition-all duration-300">
+                <img src="withoutbg.png" alt="Sahara Mart" class="h-10 md:h-12 group-hover:scale-105 transition-all duration-300">
             </a>
             
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8">
-                <a href="#" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Home</a>
-                <a href="#shop" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Shop</a>
-                <a href="#offers" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Offers</a>
-                <a href="#about" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">About</a>
-                <a href="#contact" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-sahara-orange after:transition-all after:duration-300">Contact</a>
+            <nav class="hidden md:flex space-x-8 header-nav">
+                <a href="#" class="font-medium text-slate-gray nav-link-active transition-colors duration-300" aria-current="page">Home</a>
+                <a href="#shop" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300">Shop</a>
+                <a href="#offers" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300">Offers</a>
+                <a href="#about" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300">About</a>
+                <a href="#contact" class="font-medium text-slate-gray hover:text-sahara-orange transition-colors duration-300">Contact</a>
             </nav>
             
             <!-- Mobile Menu Button -->
@@ -172,7 +174,7 @@
     </header>
     
     <!-- Hero Section -->
-    <section class="bg-pattern py-16 md:py-28 overflow-hidden" style="min-height: calc(100vh - 80px); min-height: calc(var(--vh, 1vh) * 100 - 80px);">
+    <section id="hero" class="bg-pattern py-12 md:py-20 overflow-hidden" style="min-height: calc(100vh - 60px); min-height: calc(var(--vh, 1vh) * 100 - 60px);">
         <div class="container mx-auto px-4 md:px-8 lg:px-12 relative">
             <!-- Floating decorative elements (Vision OS style) -->
             <div class="absolute -top-10 left-10 w-32 h-32 bg-sahara-yellow bg-opacity-10 rounded-full filter blur-xl animate-float hardware-accelerated"></div>
@@ -182,23 +184,23 @@
             <div class="flex flex-col md:flex-row items-center justify-center h-full relative z-10">
                 <!-- Hero Content -->
                 <div class="w-full md:w-1/2 mb-12 md:mb-0 md:pl-6 lg:pl-10">
-                    <div class="relative inline-block mb-4">
+                    <div class="relative inline-block mb-2">
                         <span class="absolute -left-3 -top-3 w-12 h-12 bg-sahara-yellow opacity-20 rounded-full blur-md"></span>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-sahara-orange animate-slide-left opacity-0 text-glow hardware-accelerated relative">
+                        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-sahara-orange animate-slide-left opacity-0 text-glow hardware-accelerated relative">
                             Your Everyday <span class="relative inline-block">
                                 <span class="absolute -bottom-2 left-0 w-full h-3 bg-sahara-yellow opacity-30 rounded-full blur-sm"></span>
                                 Hypermarket
                             </span>
                         </h1>
                     </div>
-                    <p class="text-lg md:text-xl mb-8 max-w-lg animate-slide-left opacity-0 stagger-1 hardware-accelerated leading-relaxed">
+                    <p class="text-base md:text-lg mb-6 max-w-lg animate-slide-left opacity-0 stagger-1 hardware-accelerated leading-relaxed">
                         Discover quality products, fresh groceries, and everyday essentials at Sahara Mart - Bahrain's premier shopping destination.
                     </p>
-                    <div class="flex flex-wrap gap-6 animate-slide-left opacity-0 stagger-2 hardware-accelerated">
-                        <a href="#shop" class="px-10 py-4 text-lg btn-vision text-white font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-orange/20 hover:-translate-y-1 duration-300">
+                    <div class="flex flex-wrap gap-4 md:gap-6 animate-slide-left opacity-0 stagger-2 hardware-accelerated">
+                        <a href="#shop" class="px-8 py-3 md:px-10 md:py-4 text-base md:text-lg btn-vision text-white font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-orange/20 hover:-translate-y-1 duration-300">
                             Shop Now
                         </a>
-                        <a href="#offers" class="px-10 py-4 text-lg glass-effect text-slate-gray font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-yellow/20 hover:-translate-y-1 duration-300 border border-white/20">
+                        <a href="#offers" class="px-8 py-3 md:px-10 md:py-4 text-base md:text-lg glass-effect text-slate-gray font-medium rounded-full hover:bg-opacity-90 transition-all hover:shadow-lg hover:shadow-sahara-yellow/20 hover:-translate-y-1 duration-300 border border-white/20">
                             View Offers
                         </a>
                     </div>
@@ -249,7 +251,7 @@
                         </div>
                         <p class="text-sm text-slate-gray mb-4">Farm-fresh fruits and vegetables sourced locally</p>
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-sahara-orange">From $2.99</span>
+                            <span class="font-bold text-sahara-orange">From ﺪ.ﺐ 2.99</span>
                             <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
                                 Add to Cart
                             </button>
@@ -274,7 +276,7 @@
                         </div>
                         <p class="text-sm text-slate-gray mb-4">Artisan breads and pastries baked daily</p>
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-sahara-orange">From $3.49</span>
+                            <span class="font-bold text-sahara-orange">From ﺪ.ﺐ 3.49</span>
                             <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
                                 Add to Cart
                             </button>
@@ -299,7 +301,7 @@
                         </div>
                         <p class="text-sm text-slate-gray mb-4">Quality cleaning and home maintenance products</p>
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-sahara-orange">From $4.99</span>
+                            <span class="font-bold text-sahara-orange">From ﺪ.ﺐ 4.99</span>
                             <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
                                 Add to Cart
                             </button>
@@ -324,7 +326,7 @@
                         </div>
                         <p class="text-sm text-slate-gray mb-4">Latest gadgets and home appliances</p>
                         <div class="flex justify-between items-center">
-                            <span class="font-bold text-sahara-orange">From $19.99</span>
+                            <span class="font-bold text-sahara-orange">From ﺪ.ﺐ 19.99</span>
                             <button class="px-4 py-2 btn-vision text-white rounded-full hover:bg-opacity-90 transition-all text-sm hover:shadow-lg hover:shadow-sahara-orange/20">
                                 Add to Cart
                             </button>

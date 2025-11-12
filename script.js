@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initTestimonialCarousel();
         initMobileMenu();
         initMobileOptimizations();
+        initNavigationHighlight();
         
         // Add page-loaded class for CSS transitions
         document.body.classList.add('page-loaded');
@@ -554,6 +555,55 @@ function initMobileOptimizations() {
     }
 }
 
+// Navigation highlighting function
+function initNavigationHighlight() {
+    const navLinks = document.querySelectorAll('.header-nav a');
+    const sections = ['hero', 'shop', 'offers', 'about', 'contact'];
+    
+    // Track the current active section
+    let currentActive = 0;
+    
+    // Update active nav based on scroll position
+    const updateActiveNav = () => {
+        let closestDistance = Infinity;
+        let closestIndex = 0;
+        
+        sections.forEach((sectionId, index) => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                const distance = Math.abs(rect.top);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            }
+        });
+        
+        // Update active state
+        if (closestIndex !== currentActive) {
+            navLinks.forEach((link, index) => {
+                if (index === closestIndex) {
+                    link.classList.add('nav-link-active');
+                } else {
+                    link.classList.remove('nav-link-active');
+                }
+            });
+            currentActive = closestIndex;
+        }
+    };
+    
+    // Throttle scroll updates for performance
+    const throttledUpdate = debounce(updateActiveNav, 50);
+    
+    // Update on scroll
+    requestAnimationFrame(function() {
+        updateActiveNav();
+        window.addEventListener('scroll', throttledUpdate, { passive: true });
+    });
+}
+
 // Utility: Debounce function for performance optimization
 function debounce(func, wait = 10) {
     let timeout;
@@ -563,4 +613,4 @@ function debounce(func, wait = 10) {
             func.apply(this, args);
         }, wait);
     };
-} 
+}
